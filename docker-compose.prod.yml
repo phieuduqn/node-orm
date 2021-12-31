@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:alpine
+    container_name: xp_redis
+    env_file: ./.env
+    ports:
+      - "$REDIS_PORT:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    # networks:
+    #  - app-network
+  mysqldb:
+    image: mysql
+    container_name: xp_mysql
+    restart: always
+    env_file: ./.env
+    volumes:
+      - ./data/db:/var/mysql-data/data/db
+    environment:
+      MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+      MYSQL_DATABASE: $DB_NAME
+    ports:
+      - "$DB_PORT:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    # networks:
+    #  - app-network
+
+  app-queue-api:
+    build:
+      context: .
+      target: prod
+      dockerfile: ./Dockerfile
+    image: xp_queue:latest
+    container_name: xp_queue
+    restart: always
+    command: "npm run queue:prod"
+    ports:
+      - $QUEUE_BOARD_PORT:$QUEUE_BOARD_PORT
+    links:
+      - redis
+      - mysqldb
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    tty: true
+    env_file: ./.env
+  app-api:
+    build:
+      context: .
+      target: prod
+      dockerfile: ./Dockerfile
+    image: xp_api:latest
+    container_name: xp_api
+    restart: always
+    ports:
+      - $PORT:$PORT
+    links:
+      - redis
+      - mysqldb
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    tty: true
+    env_file: ./.env
