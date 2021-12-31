@@ -34,7 +34,7 @@ services:
     #  - app-network
 
   app-queue-api:
-    image: phuongtx/xp_api:latest
+    image: phuongtx/xp_api:1.0.0
     container_name: xp_queue
     restart: always
     command: "npm run queue:prod"
@@ -55,8 +55,9 @@ services:
       context: .
       target: prod
       dockerfile: ./Dockerfile
-    image: phuongtx/xp_api:latest
+    image: phuongtx/xp_api:latest1.0.0
     container_name: xp_api
+    command: sh -c "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && pm2 start ecosystem.config.js --env production --no-daemon"
     restart: always
     ports:
       - $PORT:$PORT

@@ -4,8 +4,8 @@ Nodejs Express Sequelize Redis
 # Steup Deploy
 1. Run development mode
   `docker-compose -f docker-compose.dev.yml up --build --remove-orphans`
-   Production mode 
- `docker-compose -f docker-compose.prod.yml up --build --remove-orphans`
+    Production mode 
+  `docker-compose -f docker-compose.prod.yml up --build --remove-orphans`
 
 ⚠️**WARNING** 
 You you want to delete all old containers and images, 

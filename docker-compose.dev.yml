@@ -59,6 +59,7 @@ services:
       dockerfile: ./Dockerfile
     image: phuongtx/xp_api:latest
     container_name: xp_api
+    command: sh -c "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm run dev"
     restart: always
     ports:
       - $PORT:$PORT

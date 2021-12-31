@@ -20,20 +20,15 @@ EXPOSE 4002
 
 FROM base as dev
 
-RUN npm install
-
-ADD start-dev.sh / 
-RUN chmod +x /start-dev.sh 
-CMD ["sh", "./start-dev.sh"]
+RUN npm install 
+RUN npm install nodemon -g
+# CMD ["npm", "dev"]
 
 # Production
 FROM base as prod
 RUN npm install --production
 RUN npm install pm2@latest -g
-
-# Bundle app source
 COPY . ./
-ADD start-prod.sh / 
-RUN chmod +x /start-prod.sh 
-CMD ["sh", "./start-prod.sh"]
+
+# CMD [ "pm2", "start", "ecosystem.config.js", "--env", "production", "--no-daemon" ]
 
