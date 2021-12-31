@@ -25,7 +25,7 @@ services:
       MYSQL_ROOT_PASSWORD: $DB_PASSWORD
       MYSQL_DATABASE: $DB_NAME
     ports:
-      - "$DB_PORT:3306"
+      - "$DB_PORT:$DB_PORT"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s

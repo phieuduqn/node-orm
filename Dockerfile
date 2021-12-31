@@ -28,7 +28,7 @@ CMD ["sh", "./start-dev.sh"]
 
 # Production
 FROM base as prod
-RUN npm ci --only=production
+RUN npm install --production
 RUN npm install pm2@latest -g
 
 # Bundle app source

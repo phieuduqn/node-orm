@@ -7,9 +7,9 @@ Nodejs Express Sequelize Redis
    Production mode 
  `docker-compose -f docker-compose.prod.yml up --build --remove-orphans`
 
+⚠️**WARNING** 
 You you want to delete all old containers and images, 
 try `docker rm $(docker ps -a -q)` and `docker rmi $(docker images -q)`
-
 
 
 ```
@@ -41,12 +41,13 @@ npm run test
     `npx sequelize-cli db:migrate`
 
 ⚠️**WARNING** :  Be careful when run undo migrations. It will delete data and table schema.
-  3. Undo most recent migrate
-    `npx sequelize-cli db:migrate:undo` ⚠️**WARNING** 
-  4. Undo all migrations
-    `npx sequelize-cli db:migrate:undo:all` ⚠️**WARNING** 
-  5. Undo back to migrations
-    `npx sequelize-cli db:migrate:undo:all --to 'migraton-name'` ⚠️**WARNING** 
+  3. Undo most recent migrate ⚠️**WARNING** 
+    `npx sequelize-cli db:migrate:undo` 
+  4. Undo all migrations ⚠️**WARNING** 
+    `npx sequelize-cli db:migrate:undo:all` 
+  5. Undo back to migrations ⚠️**WARNING** 
+    `npx sequelize-cli db:migrate:undo:all --to 'migraton-name'` 
+
 If u get limit by FOREIGN just access to sql console and SET FOREIGN_KEY_CHECKS=OFF; Run migration and set it ON again.
 
 
@@ -58,10 +59,10 @@ If u get limit by FOREIGN just access to sql console and SET FOREIGN_KEY_CHECKS=
     `npx sequelize-cli seed:generate --name demo-user`
   2. Run Seed
     `npx sequelize-cli db:seed:all`
-  3. Undo most recent seed
-    `npx sequelize-cli db:seed:undo` ⚠️**WARNING** 
-  4. Undo all seeds
-    `npx sequelize-cli db:seed:undo:all` ⚠️**WARNING** 
+  3. Undo most recent seed  ⚠️**WARNING** 
+    `npx sequelize-cli db:seed:undo`
+  4. Undo all seeds  ⚠️**WARNING** 
+    `npx sequelize-cli db:seed:undo:all`
 
 
 ## Error handling
