@@ -9,7 +9,6 @@
     "queue:dev": "nodemon src/moduls/queue.js --exec \"node -r dotenv/config -r babel-register\"",
     "queue:prod": "node src/moduls/queue.js --exec \"NODE_ENV=production node -r dotenv/config -r babel-register\"",
     "mocha": "nyc mocha src/test -r dotenv/config -r babel-register --timeout=30000 --exit",
-    "test": "npm run mocha",
     "lint": "eslint --ext .js src",
     "precommit": "npm run lint",
     "precommit-msg": "echo 'Pre-commit: checking for coding conventions...' && exit 0",
@@ -20,8 +19,7 @@
       "pre-commit": [
         "precommit-msg",
         "precommit"
-      ],
-      "pre-push": "npm run test"
+      ]
     }
   },
   "babel": {

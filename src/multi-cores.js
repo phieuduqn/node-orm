@@ -12,7 +12,7 @@ export default (app, mediator) => {
   socket(io)
 
   global.isIndexesServer = true
-
+  console.log('API ENV', process.env.NODE_ENV)
   setImmediate(() => {
     mediator.emit('boot.ready')
   })

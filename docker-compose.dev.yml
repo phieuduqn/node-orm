@@ -20,7 +20,7 @@ services:
     restart: always
     env_file: ./.env
     volumes:
-      - ./data/db:/var/mysql-data/data/db
+      - ./data/db:/var/lib/mysql/
     environment:
       MYSQL_ROOT_PASSWORD: $DB_PASSWORD
       MYSQL_DATABASE: $DB_NAME
@@ -57,7 +57,7 @@ services:
       context: .
       target: dev
       dockerfile: ./Dockerfile
-    image: xp_api:latest
+    image: phuongtx/xp_api:latest
     container_name: xp_api
     restart: always
     ports:

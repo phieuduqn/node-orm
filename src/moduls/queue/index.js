@@ -24,6 +24,7 @@ app.use('/admin/queues', (req, res, next) => {
 app.listen(port)
 console.log(`Check at: http://localhost:${port}/admin/queues`)
 
+console.log('QUEUE ENV', process.env.NODE_ENV)
 
 export default function startQueue() {
   console.log(`Queue: ${Date.now()}`);

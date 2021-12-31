@@ -20,7 +20,7 @@ services:
     restart: always
     env_file: ./.env
     volumes:
-      - ./data/db:/var/mysql-data/data/db
+      - ./data/db:/var/lib/mysql/
     environment:
       MYSQL_ROOT_PASSWORD: $DB_PASSWORD
       MYSQL_DATABASE: $DB_NAME
@@ -34,16 +34,14 @@ services:
     #  - app-network
 
   app-queue-api:
-    build:
-      context: .
-      target: prod
-      dockerfile: ./Dockerfile
-    image: xp_queue:latest
+    image: phuongtx/xp_api:latest
     container_name: xp_queue
     restart: always
     command: "npm run queue:prod"
     ports:
       - $QUEUE_BOARD_PORT:$QUEUE_BOARD_PORT
+    environment:
+      NODE_ENV: production
     links:
       - redis
       - mysqldb
@@ -57,11 +55,13 @@ services:
       context: .
       target: prod
       dockerfile: ./Dockerfile
-    image: xp_api:latest
+    image: phuongtx/xp_api:latest
     container_name: xp_api
     restart: always
     ports:
       - $PORT:$PORT
+    environment:
+      NODE_ENV: production
     links:
       - redis
       - mysqldb

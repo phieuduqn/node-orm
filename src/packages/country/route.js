@@ -4,7 +4,7 @@ import authentication from '../../middleware/authMiddleWare'
 
 const router = express.Router()
 
-router.get('/', authentication, (req, res, next) => {
+router.get('/', (req, res, next) => {
   req.query.status = 1
   next()
 }, controller.index)
